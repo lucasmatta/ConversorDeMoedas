@@ -28,13 +28,17 @@ void main() {
             CheckCurrencyInfo apiChecker = new CheckCurrencyInfo();
             try {
                 ApiRecord myCurrency = apiChecker.currencyConversion(baseCurrencyName, targetCurrencyName, convertAmountNum);
-                String prettyBase = String.format("%.2f", convertAmountNum);
-                String prettyTarget = String.format("%.2f", myCurrency.conversion_result());
-                String prettyRate = String.format("%.2f", myCurrency.conversion_rate());
-                System.out.println("A conversão foi um sucesso!");
-                System.out.println("Valor em " + baseCurrencyName + ": " + prettyBase);
-                System.out.println("Valor em " + targetCurrencyName + ": " + prettyTarget);
-                System.out.println("Cotação do " + baseCurrencyName + " hoje: " + prettyRate);
+                if (myCurrency.conversion_result() == 0) {
+                    System.out.println("Use apenas moedas existentes!");
+                } else {
+                    String prettyBase = String.format("%.2f", convertAmountNum);
+                    String prettyTarget = String.format("%.2f", myCurrency.conversion_result());
+                    String prettyRate = String.format("%.2f", myCurrency.conversion_rate());
+                    System.out.println("A conversão foi um sucesso!");
+                    System.out.println("Valor em " + baseCurrencyName + ": " + prettyBase);
+                    System.out.println("Valor em " + targetCurrencyName + ": " + prettyTarget);
+                    System.out.println("Cotação do " + baseCurrencyName + " hoje: " + prettyRate);
+                }
             } catch (Exception e) {
                 System.out.println("Algum erro aconteceu! Veja abaixo:");
                 throw new RuntimeException(e);
